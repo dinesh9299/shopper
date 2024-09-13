@@ -8,12 +8,12 @@ async function cartproductsbyId(req, res) {
     const cartProducts = await cartModel.find({ userid: userId }).exec();
 
     // If no cart items are found, return a 404 response
-    // if (cartProducts.length === 0) {
-    //   return res.status(201).json({
-    //     message: "No products found in the cart for this user.",
-    //     success: false,
-    //   });
-    // }
+    if (cartProducts.length === 0) {
+      return res.status(201).json({
+        message: "No products found in the cart for this user.",
+        success: false,
+      });
+    }
 
     // Send the found cart items
     res.status(200).json(cartProducts);

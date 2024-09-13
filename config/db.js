@@ -1,11 +1,18 @@
 const mongoose = require("mongoose");
 
-async function connettoDb() {
+async function connectDB() {
   try {
-    mongoose.connect(process.env.MONGO_URI);
+    // Connect to MongoDB using the connection string from the environment variables
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      // Additional options if needed
+    });
+    console.log("MongoDB connected successfully");
   } catch (error) {
-    console.log(error);
+    console.error("Error connecting to MongoDB:", error);
+    throw error; // Re-throw the error to handle it in the server file
   }
 }
 
-module.exports = connettoDb;
+module.exports = connectDB;
